@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem -Path \"$env:USERPROFILE\\\\.platformio\" -Recurse -Filter \"pio.exe\" -ErrorAction SilentlyContinue | Select-Object -First 5 -ExpandProperty FullName)",
+      "PowerShell(& \"C:\\\\Users\\\\pc\\\\.platformio\\\\penv\\\\Scripts\\\\pio.exe\" run --target upload --project-dir \"c:\\\\Users\\\\pc\\\\Documents\\\\PlatformIO\\\\Projects\\\\IOT\")",
+      "WebSearch",
+      "PowerShell(& \"C:\\\\Users\\\\pc\\\\.platformio\\\\penv\\\\Scripts\\\\pio.exe\" run --target upload --upload-port COM3 --project-dir \"c:\\\\Users\\\\pc\\\\Documents\\\\PlatformIO\\\\Projects\\\\IOT\")",
+      "PowerShell(& \"C:\\\\Users\\\\pc\\\\.platformio\\\\penv\\\\Scripts\\\\pio.exe\" device monitor --port COM3 --baud 115200 --project-dir \"c:\\\\Users\\\\pc\\\\Documents\\\\PlatformIO\\\\Projects\\\\IOT\")",
+      "PowerShell(& \"C:\\\\Users\\\\pc\\\\.platformio\\\\penv\\\\Scripts\\\\pio.exe\" lib search \"ntp\" 2>&1)"
+    ]
+  }
+}

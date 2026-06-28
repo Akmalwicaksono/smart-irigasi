@@ -321,30 +321,30 @@ svg.icon-md { width: 18px; height: 18px; }
 <div id="tableMelon" style="display:none;">
   <div class="profile-title" style="justify-content: space-between;">
     <div>🍈 Melon (~65 hari)</div>
-    <button class="btn btn-sm btn-danger" onclick="stopSimulasi(1)" style="padding:4px 10px;">⏹ Stop Simulasi</button>
+    <button class="btn btn-sm btn-danger" onclick="stopSimulasi(1)" style="padding:4px 8px; min-width:auto;">⏹ Stop</button>
   </div>
   <div style="overflow-x:auto;">
     <table class="profile-table">
       <tr><th>Fase</th><th>Minggu</th><th>Jadwal</th><th>Threshold</th><th>Aksi</th></tr>
-      <tr><td>Dormant</td><td>1-2</td><td>08:00, 16:00 (2 menit)</td><td>&lt; 35%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 1)" style="padding:4px 8px; min-width:auto;">▶ Simulasi</button></td></tr>
-      <tr><td>Vegetatif</td><td>3-4</td><td>07:00, 12:00, 17:00 (2-3 menit)</td><td>&lt; 35%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 3)" style="padding:4px 8px; min-width:auto;">▶ Simulasi</button></td></tr>
-      <tr><td>Generatif</td><td>5-7</td><td>06:00, 11:00, 15:00, 18:00 (2-3 menit)</td><td>&lt; 35%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 5)" style="padding:4px 8px; min-width:auto;">▶ Simulasi</button></td></tr>
-      <tr><td>Panen</td><td>8-9</td><td>07:00, 16:00 (2.5 menit)</td><td>&lt; 35%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 8)" style="padding:4px 8px; min-width:auto;">▶ Simulasi</button></td></tr>
+      <tr><td>Dormant</td><td>1-2</td><td>08:00, 16:00 (2 menit)</td><td>&lt; 35%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 1)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Vegetatif</td><td>3-4</td><td>07:00, 12:00, 17:00 (2-3 menit)</td><td>&lt; 35%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 3)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Generatif</td><td>5-7</td><td>06:00, 11:00, 15:00, 18:00 (2-3 menit)</td><td>&lt; 35%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 5)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Panen</td><td>8-9</td><td>07:00, 16:00 (2.5 menit)</td><td>&lt; 35%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 8)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
     </table>
   </div>
 </div>
 <div id="tableCabe" style="display:none;">
   <div class="profile-title" style="justify-content: space-between;">
     <div>🌶️ Cabe (~90 hari)</div>
-    <button class="btn btn-sm btn-danger" onclick="stopSimulasi(2)" style="padding:4px 10px;">⏹ Stop Simulasi</button>
+    <button class="btn btn-sm btn-danger" onclick="stopSimulasi(2)" style="padding:4px 8px; min-width:auto;">⏹ Stop</button>
   </div>
   <div style="overflow-x:auto;">
     <table class="profile-table">
       <tr><th>Fase</th><th>Minggu</th><th>Jadwal</th><th>Threshold</th><th>Aksi</th></tr>
-      <tr><td>Semai</td><td>1-2</td><td>07:30, 17:30 (1.5 menit)</td><td>&lt; 40%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 1)" style="padding:4px 8px; min-width:auto;">▶ Simulasi</button></td></tr>
-      <tr><td>Vegetatif</td><td>3-6</td><td>06:30, 11:00, 17:00 (1.5-2 menit)</td><td>&lt; 40%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 3)" style="padding:4px 8px; min-width:auto;">▶ Simulasi</button></td></tr>
-      <tr><td>Generatif</td><td>7-12</td><td>06:00, 10:30, 16:00, 19:00 (1.5-2.5 menit)</td><td>&lt; 40%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 7)" style="padding:4px 8px; min-width:auto;">▶ Simulasi</button></td></tr>
-      <tr><td>Panen</td><td>13</td><td>07:00, 16:30 (2 menit)</td><td>&lt; 40%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 13)" style="padding:4px 8px; min-width:auto;">▶ Simulasi</button></td></tr>
+      <tr><td>Semai</td><td>1-2</td><td>07:30, 17:30 (1.5 menit)</td><td>&lt; 40%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 1)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Vegetatif</td><td>3-6</td><td>06:30, 11:00, 17:00 (1.5-2 menit)</td><td>&lt; 40%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 3)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Generatif</td><td>7-12</td><td>06:00, 10:30, 16:00, 19:00 (1.5-2.5 menit)</td><td>&lt; 40%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 7)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Panen</td><td>13</td><td>07:00, 16:30 (2 menit)</td><td>&lt; 40%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 13)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
     </table>
   </div>
 </div>
@@ -1113,10 +1113,32 @@ bool isScheduledTime(const IrrigationSchedule& sched) {
     return (currentTimeMinutes == scheduleTimeMinutes);
 }
 
+void checkPumpTimeouts() {
+    // Cek Pompa 1 (Melon)
+    if (pump1State) {
+        unsigned long elapsed = millis() - pump1StartTime;
+        if (elapsed >= (unsigned long)pump1Duration * 1000) {
+            controlPump(1, false);
+            Serial.println("[POMPA 1] Timeout / Selesai");
+        }
+    }
+
+    // Cek Pompa 2 (Cabe)
+    if (pump2State) {
+        unsigned long elapsed = millis() - pump2StartTime;
+        if (elapsed >= (unsigned long)pump2Duration * 1000) {
+            controlPump(2, false);
+            Serial.println("[POMPA 2] Timeout / Selesai");
+        }
+    }
+}
+
 // ============================================
 // FUNGSI UTAMA PENYIRAMAN OTOMATIS
 // ============================================
 void runAutomaticIrrigation() {
+    checkPumpTimeouts();
+
     if (!autoMode || selectedPlant == PLANT_NONE) {
         return;
     }
@@ -1126,26 +1148,6 @@ void runAutomaticIrrigation() {
     getCurrentSchedule(schedule, scheduleCount);
 
     if (schedule == NULL || scheduleCount == 0) {
-        return;
-    }
-
-    // Cek Pompa 1 (Melon)
-    if (pump1State && selectedPlant == PLANT_MELON) {
-        unsigned long elapsed = millis() - pump1StartTime;
-        if (elapsed >= (unsigned long)pump1Duration * 1000) {
-            controlPump(1, false);
-            Serial.println("[MELON] Penyiraman selesai");
-        }
-        return;
-    }
-
-    // Cek Pompa 2 (Cabe)
-    if (pump2State && selectedPlant == PLANT_CABE) {
-        unsigned long elapsed = millis() - pump2StartTime;
-        if (elapsed >= (unsigned long)pump2Duration * 1000) {
-            controlPump(2, false);
-            Serial.println("[CABE] Penyiraman selesai");
-        }
         return;
     }
 
@@ -1186,13 +1188,13 @@ void runAutomaticIrrigation() {
 
                 const char* plantName = getPlantName(selectedPlant);
 
-                if (currentMoisture > soilThresholdMax) {
-                    // Tanah terlalu basah - skip
+                if (currentMoisture >= soilThresholdMin) {
+                    // Tanah masih cukup lembab - skip
                     Serial.print("[SKIP] ");
                     Serial.print(plantName);
-                    Serial.println(" - Tanah lembab, skip!");
-                } else if (currentMoisture < soilThresholdMin) {
-                    // Tanah kering - siram
+                    Serial.println(" - Tanah masih lembab (>= min), penyiraman dibatalkan!");
+                } else {
+                    // Tanah kering - siram full
                     Serial.print("[START] ");
                     Serial.print(plantName);
                     Serial.print(" - Menyiram (");
@@ -1206,32 +1208,6 @@ void runAutomaticIrrigation() {
                         pump2Duration = sched.durasiDetik;
                         controlPump(2, true);
                     }
-                    break;
-                } else {
-                    // Kelembaban sedang - durasi adaptif
-                    int adjustedDuration = map(currentMoisture,
-                                               soilThresholdMin,
-                                               soilThresholdMax,
-                                               sched.durasiDetik,
-                                               sched.durasiDetik / 2);
-                    adjustedDuration = constrain(adjustedDuration,
-                                                  sched.durasiDetik / 3,
-                                                  sched.durasiDetik);
-
-                    Serial.print("[ADAPT] ");
-                    Serial.print(plantName);
-                    Serial.print(" - Durasi: ");
-                    Serial.print(adjustedDuration);
-                    Serial.println(" detik");
-
-                    if (selectedPlant == PLANT_MELON) {
-                        pump1Duration = adjustedDuration;
-                        controlPump(1, true);
-                    } else if (selectedPlant == PLANT_CABE) {
-                        pump2Duration = adjustedDuration;
-                        controlPump(2, true);
-                    }
-                    break;
                 }
             }
         }

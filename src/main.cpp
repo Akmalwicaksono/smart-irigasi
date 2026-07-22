@@ -1726,10 +1726,16 @@ void sendPeriodicStatus() {
 }
 
 BLYNK_CONNECTED() {
-    // Sinkronkan nilai tersimpan di hardware ke aplikasi Blynk saat terhubung
+    Serial.println("[BLYNK] Sinkronisasi nilai default...");
     Blynk.virtualWrite(V0, (int)selectedPlant);
     Blynk.virtualWrite(V1, plantAge);
     Blynk.virtualWrite(V10, plantInfoBuffer);
+    
+    // Sinkronisasi status pompa yang mati saat boot
+    Blynk.virtualWrite(V2, 0);
+    Blynk.virtualWrite(V5, 0);
+    Blynk.virtualWrite(V4, 0);
+    Blynk.virtualWrite(V6, 0);
 }
 
 void readSoilSensor() {

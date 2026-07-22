@@ -15,12 +15,13 @@
 // ============================================
 // KONFIGURASI THRESHOLD KELembaban TANAH
 // Nilai default - dapat diubah dari Blynk atau kode
-#define DEFAULT_THRESHOLD_MIN   40   // Batas bawah default (%)
-#define DEFAULT_THRESHOLD_MAX   70   // Batas atas default (%)
-#define MELON_THRESHOLD_MIN     35   // Melon butuh air lebih banyak
-#define MELON_THRESHOLD_MAX     70
-#define CABE_THRESHOLD_MIN      40   // Cabe butuh air sedang-konsisten
-#define CABE_THRESHOLD_MAX      75
+#define DEFAULT_THRESHOLD_MIN   55   // Batas bawah default (%)
+#define DEFAULT_THRESHOLD_MAX   75   // Batas atas default (%)
+#define MELON_THRESHOLD_MIN     60   // Melon
+#define MELON_THRESHOLD_MAX     80
+// Cabe threshold dinamis per fase (sesuai data penelitian)
+#define CABE_THRESHOLD_MIN      55   // Cabe (sesuai data minimum)
+#define CABE_THRESHOLD_MAX      75  // Cabe (sesuai data ideal)
 
 // ============================================
 // KONSTANTA UMUR TANAMAN (dalam hari)
@@ -193,10 +194,14 @@ inline const char* getPlantPhase(int hari, PlantType type) {
         else if (minggu <= 7) return "Generatif";
         else return "Panen";
     } else if (type == PLANT_CABE) {
-        if (minggu <= 2) return "Semai";
-        else if (minggu <= 6) return "Vegetatif";
-        else if (minggu <= 12) return "Generatif";
-        else return "Panen";
+        // Fase Cabe sesuai data penelitian
+        if (hari <= 7) return "Pindah Tanam";
+        else if (hari <= 21) return "Vegetatif Awal";
+        else if (hari <= 35) return "Vegetatif Aktif";
+        else if (hari <= 42) return "Pembungaan";
+        else if (hari <= 62) return "Pemb. Buah";
+        else if (hari <= 69) return "Pembesaran";
+        else return "Pematangan";
     }
     return "Unknown";
 }

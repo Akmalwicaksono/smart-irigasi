@@ -236,25 +236,28 @@ svg.icon-md { width: 18px; height: 18px; }
     <div class="sub-value" id="date">--/--/----</div>
   </div>
   <div class="status-item">
-    <div class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg> Info Tanaman</div>
+    <div class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg> Tanaman</div>
     <div class="value" id="plant">-</div>
     <div class="sub-value" id="phase">Fase: - | Mg: -</div>
   </div>
-  <div class="status-item">
+  <div class="status-item" style="flex: 1.5;">
     <div class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg> Kelembaban</div>
     <div class="value" id="moisture">-%</div>
+    <div class="sub-value" id="threshold">Threshold: -</div>
+    <!-- Progress Bar -->
+    <div style="margin-top:8px; background:#0F172A; border-radius:4px; height:8px; overflow:hidden;">
+      <div id="moistureBar" style="height:100%; width:0%; background:linear-gradient(90deg, #EF4444, #F59E0B, #10B981); transition:width 0.5s;"></div>
+    </div>
   </div>
   <div class="status-item">
-    <div class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> Pompa 1</div>
+    <div class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> Pompa</div>
     <div class="value" id="pump1">OFF</div>
+    <div class="sub-value" id="pumpTarget">Target: -</div>
   </div>
   <div class="status-item">
-    <div class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> Pompa 2</div>
-    <div class="value" id="pump2">OFF</div>
-  </div>
-  <div class="status-item">
-    <div class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> Sistem</div>
-    <div class="value primary" id="mode">AUTO</div>
+    <div class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> Mode</div>
+    <div class="value" id="mode">AUTO</div>
+    <div class="sub-value" id="pumpReason">-</div>
   </div>
   <div class="status-item">
     <div class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg> Koneksi</div>
@@ -326,10 +329,10 @@ svg.icon-md { width: 18px; height: 18px; }
   <div style="overflow-x:auto;">
     <table class="profile-table">
       <tr><th>Fase</th><th>Minggu</th><th>Jadwal</th><th>Threshold</th><th>Aksi</th></tr>
-      <tr><td>Dormant</td><td>1-2</td><td>08:00, 16:00 (2 menit)</td><td>&lt; 35%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 1)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
-      <tr><td>Vegetatif</td><td>3-4</td><td>07:00, 12:00, 17:00 (2-3 menit)</td><td>&lt; 35%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 3)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
-      <tr><td>Generatif</td><td>5-7</td><td>06:00, 11:00, 15:00, 18:00 (2-3 menit)</td><td>&lt; 35%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 5)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
-      <tr><td>Panen</td><td>8-9</td><td>07:00, 16:00 (2.5 menit)</td><td>&lt; 35%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 8)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Dormant</td><td>1-2</td><td>08:00, 16:00 (2 menit)</td><td>&lt; 60%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 1)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Vegetatif</td><td>3-4</td><td>07:00, 12:00, 17:00 (2-3 menit)</td><td>&lt; 60%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 3)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Generatif</td><td>5-7</td><td>06:00, 11:00, 15:00, 18:00 (2-3 menit)</td><td>&lt; 60%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 5)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Panen</td><td>8-9</td><td>07:00, 16:00 (2.5 menit)</td><td>&lt; 60%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(1, 8)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
     </table>
   </div>
 </div>
@@ -341,10 +344,13 @@ svg.icon-md { width: 18px; height: 18px; }
   <div style="overflow-x:auto;">
     <table class="profile-table">
       <tr><th>Fase</th><th>Minggu</th><th>Jadwal</th><th>Threshold</th><th>Aksi</th></tr>
-      <tr><td>Semai</td><td>1-2</td><td>07:30, 17:30 (1.5 menit)</td><td>&lt; 40%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 1)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
-      <tr><td>Vegetatif</td><td>3-6</td><td>06:30, 11:00, 17:00 (1.5-2 menit)</td><td>&lt; 40%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 3)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
-      <tr><td>Generatif</td><td>7-12</td><td>06:00, 10:30, 16:00, 19:00 (1.5-2.5 menit)</td><td>&lt; 40%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 7)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
-      <tr><td>Panen</td><td>13</td><td>07:00, 16:30 (2 menit)</td><td>&lt; 40%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 13)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Pindah Tanam</td><td>1</td><td>07:30, 17:30 (1.5 mnt)</td><td>&lt; 55%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 1)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Vegetatif Awal</td><td>2-3</td><td>2-3x sehari (1.5-1.75 mnt)</td><td>&lt; 55%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 2)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Vegetatif Aktif</td><td>4-5</td><td>06:30, 11:00, 17:00 (1.75 mnt)</td><td>&lt; 55%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 4)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Pembungaan</td><td>6</td><td>06:30, 11:00, 17:00 (1.75 mnt)</td><td>&lt; 55%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 6)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Pemb. Buah</td><td>7-9</td><td>06:00, 10:30, 16:00, 19:00 (2 mnt)</td><td>&lt; 55%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 7)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Pembesaran</td><td>10</td><td>06:00, 10:30, 16:00, 19:00 (2 mnt)</td><td>&lt; 55%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 10)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Pematangan</td><td>11-13</td><td>2-4x sehari (2 mnt)</td><td>&lt; 55%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 11)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
     </table>
   </div>
 </div>
@@ -357,13 +363,15 @@ svg.icon-md { width: 18px; height: 18px; }
   Kontrol Manual
 </h2>
 <div class="btn-group">
-  <button class="btn btn-success" onclick="testPump1()">Pompa 1 (ON)</button>
-  <button class="btn btn-success" onclick="testPump2()">Pompa 2 (ON)</button>
+  <button class="btn btn-success" onclick="testPump1()">💧 Pompa ON</button>
   <button class="btn btn-danger" onclick="stopPumps()">
     <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>
-    STOP Semua
+    STOP
   </button>
 </div>
+<p style="color:var(--text-muted); font-size:12px; margin-top:10px; text-align:center;">
+  * Pompa akan mati otomatis saat kelembaban target tercapai
+</p>
 </div>
 
 <!-- Schedule Card -->
@@ -435,17 +443,44 @@ function updateStatus() {
         '</div>';
     }
     document.getElementById('phase').innerHTML = '';
-    
+
+    // Update kelembaban dengan progress bar
     document.getElementById('moisture').innerHTML = data.moisture + '%';
+    var moistureBar = document.getElementById('moistureBar');
+    moistureBar.style.width = data.moisture + '%';
+    document.getElementById('threshold').innerHTML = 'Min: ' + data.thresholdMin + '% | Max: ' + data.thresholdMax + '%';
+
+    // Update mode
     document.getElementById('mode').innerHTML = data.mode ? 'AUTO' : 'MANUAL';
 
+    // Update pompa - sekarang satu pompa untuk kedua tanaman
     var p1 = document.getElementById('pump1');
-    p1.innerHTML = data.pump1 ? 'ON <span class="pumping">●</span>' : 'OFF';
-    p1.className = 'value ' + (data.pump1 ? 'on' : 'off');
+    if (data.pump1 || data.pump2) {
+      p1.innerHTML = 'ON <span class="pumping">●</span>';
+      p1.className = 'value on';
+    } else {
+      p1.innerHTML = 'OFF';
+      p1.className = 'value off';
+    }
 
-    var p2 = document.getElementById('pump2');
-    p2.innerHTML = data.pump2 ? 'ON <span class="pumping">●</span>' : 'OFF';
-    p2.className = 'value ' + (data.pump2 ? 'on' : 'off');
+    // Target dan alasan pompa
+    if (data.pump1 || data.pump2) {
+      document.getElementById('pumpTarget').innerHTML = 'Target: ' + data.thresholdMax + '%';
+      if (data.pumpReason === 'auto') {
+        document.getElementById('pumpReason').innerHTML = 'Jadwal Otomatis';
+      } else if (data.pumpReason === 'manual') {
+        document.getElementById('pumpReason').innerHTML = 'Manual';
+      } else {
+        document.getElementById('pumpReason').innerHTML = 'Aktif';
+      }
+    } else {
+      document.getElementById('pumpTarget').innerHTML = 'Target: ' + data.thresholdMax + '%';
+      if (data.moisture < data.thresholdMin) {
+        document.getElementById('pumpReason').innerHTML = 'Kering, menunggu jadwal';
+      } else {
+        document.getElementById('pumpReason').innerHTML = 'Cukup air';
+      }
+    }
     
     var wifiEl = document.getElementById('wifi');
     wifiEl.innerHTML = data.wifi ? 'WiFi ON' : 'WiFi OFF';
@@ -628,6 +663,102 @@ private:
 };
 
 // ============================================
+// KONFIGURASI LCD
+// ============================================
+#define LCD_COLS          16     // Kolom LCD
+#define LCD_ROWS          2      // Baris LCD
+
+// Alamat LCD akan dideteksi otomatis
+uint8_t LCD_ADDR = 0x27;  // Default, akan di-scan
+
+// ============================================
+// OBJEK GLOBAL
+// ============================================
+SimpleRTC rtc;  // RTC DS3231 object
+LiquidCrystal_I2C* lcd;  // Akan diinisialisasi setelah alamat dideteksi
+
+// ============================================
+// DEKLARASI FUNGSI (FORWARD DECLARATIONS)
+// ============================================
+void scanI2CAddress();
+void initLCD();
+void updateSoilThreshold();
+void updatePlantInfo();
+void updateLCD();
+void controlPump(uint8_t pumpNum, bool on, const char* reason);
+void updateSoilStatus();
+
+// ============================================
+// I2C SCANNER - DETEKSI ALAMAT OTOMATIS
+// ============================================
+void scanI2CAddress() {
+    Serial.println("[I2C] Scanning devices...");
+    uint8_t deviceCount = 0;
+
+    // Scan LCD addresses (0x20 - 0x30 range)
+    // Common LCD addresses: 0x27, 0x3F, 0x20-0x30
+    uint8_t lcdAddresses[] = {0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x38, 0x3F};
+    LCD_ADDR = 0;  // Belum ditemukan
+
+    for (byte address = 0; address < 127; address++) {
+        Wire.beginTransmission(address);
+        if (Wire.endTransmission() == 0) {
+            Serial.print("[I2C] Found: 0x");
+            Serial.println(address, HEX);
+            deviceCount++;
+
+            // Cek apakah ini alamat LCD
+            for (uint8_t i = 0; i < sizeof(lcdAddresses); i++) {
+                if (address == lcdAddresses[i]) {
+                    LCD_ADDR = address;
+                    Serial.print("[LCD] Alamat LCD ditemukan: 0x");
+                    Serial.println(LCD_ADDR, HEX);
+                }
+            }
+
+            // Cek apakah ini RTC
+            if (address == RTC_ADDR) {
+                Serial.println("[RTC] DS3231 found!");
+            }
+        }
+    }
+
+    // Default ke 0x27 jika tidak ditemukan
+    if (LCD_ADDR == 0) {
+        LCD_ADDR = 0x27;
+        Serial.println("[LCD] Using default address: 0x27");
+    }
+
+    Serial.printf("[I2C] Total devices: %d\n", deviceCount);
+}
+
+// ============================================
+// INISIALISASI LCD
+// ============================================
+void initLCD() {
+    // Buat objek LCD dengan alamat yang sudah dideteksi
+    lcd = new LiquidCrystal_I2C(LCD_ADDR, LCD_COLS, LCD_ROWS);
+
+    // Inisialisasi dengan delay
+    delay(100);
+    lcd->begin(LCD_ADDR, LCD_COLS, LCD_ROWS);
+    delay(100);
+    lcd->clear();
+    delay(50);
+    lcd->backlight();
+    delay(50);
+
+    // Tampilkan pesan awal
+    lcd->setCursor(0, 0);
+    lcd->print("Smart Irrigation");
+    delay(50);
+    lcd->setCursor(0, 1);
+    lcd->print("Init System...");
+
+    Serial.println("[LCD] Inisialisasi selesai");
+}
+
+// ============================================
 // KONFIGURASI - SESUAIKAN DENGAN DATA ANDA
 // ============================================
 
@@ -643,8 +774,9 @@ private:
 // ============================================
 
 // Pin Relay (2 Channel)
-#define RELAY_POMPA_1     26   // GPIO 26 - Pompa utama (Melon)
-#define RELAY_POMPA_2     27   // GPIO 27 - Pompa cadangan (Cabe)
+// Pompa 1 = Cabe, Pompa 2 = Melon
+#define RELAY_POMPA_1     26   // GPIO 26 - Pompa Cabe
+#define RELAY_POMPA_2     27   // GPIO 27 - Pompa Melon
 
 // Logika Relay (Active Low)
 #define RELAY_ON          LOW
@@ -658,23 +790,16 @@ private:
 #define I2C_SCL           22   // GPIO 22 - SCL
 
 // ============================================
-// KONFIGURASI LCD
-// ============================================
-#define LCD_ADDR          0x27   // Address LCD I2C (biasanya 0x27 atau 0x3F)
-#define LCD_COLS          16     // Kolom LCD
-#define LCD_ROWS          2      // Baris LCD
-
-// ============================================
 // KONFIGURASI THRESHOLD KELembadan TANAH
 // ============================================
 
-// Threshold untuk Melon (butuh air lebih banyak)
-#define MELON_THRESHOLD_MIN   35
-#define MELON_THRESHOLD_MAX   70
+// Threshold untuk Melon (butuh air lebih banyak) - DIUBAH: 60%
+#define MELON_THRESHOLD_MIN   60
+#define MELON_THRESHOLD_MAX   80
 
-// Threshold untuk Cabe (butuh air sedang-konsisten)
-#define CABE_THRESHOLD_MIN    40
-#define CABE_THRESHOLD_MAX    75
+// Threshold untuk Cabe (sesuai data penelitian)
+#define CABE_THRESHOLD_MIN    55   // Cabe min (sesuai data)
+#define CABE_THRESHOLD_MAX    75   // Cabe max (sesuai data)
 
 // ============================================
 // KONFIGURASI SENSOR
@@ -685,19 +810,18 @@ private:
 #define SOIL_WET_VALUE             0      // ADC saat tanah basah
 
 // ============================================
-// OBJEK GLOBAL
+// KONFIGURASI MOISTURE-BASED PUMP CONTROL
+// Pompa mati otomatis jika kelembaban sudah tercapai
 // ============================================
-LiquidCrystal_I2C lcd(LCD_ADDR, LCD_COLS, LCD_ROWS);
-SimpleRTC rtc;  // RTC DS3231 object
+#define MOISTURE_CHECK_INTERVAL 2000   // Cek kelembaban setiap 2 detik saat pompa aktif
+#define MAX_IRRIGATION_TIME    300000  // Max 5 menit (safety limit)
 
 // ============================================
 // DEKLARASI FUNGSI (FORWARD DECLARATIONS)
 // ============================================
-void updateSoilThreshold();
-void updatePlantInfo();
-void updateLCD();
-void controlPump(uint8_t pumpNum, bool on);
-void updateSoilStatus();
+void scanI2CAddress();
+void initLCD();
+void runAutomaticIrrigation();
 
 // ============================================
 // STATUS SISTEM
@@ -711,6 +835,7 @@ unsigned long pump1StartTime = 0;
 unsigned long pump2StartTime = 0;
 int pump1Duration = 0;
 int pump2Duration = 0;
+char pumpReason[20] = "idle";  // Alasan pompa aktif: idle, auto, manual
 
 // Status sensor
 int soilMoisturePercent = 0;
@@ -837,14 +962,14 @@ BLYNK_WRITE(V3)  // Mode Auto/Manual
 BLYNK_WRITE(V4)  // Kontrol Manual Pompa 1
 {
     if (!autoMode) {
-        controlPump(1, param.asInt() == 1);
+        controlPump(1, param.asInt() == 1, "blynk");
     }
 }
 
 BLYNK_WRITE(V6)  // Kontrol Manual Pompa 2
 {
     if (!autoMode) {
-        controlPump(2, param.asInt() == 1);
+        controlPump(1, param.asInt() == 1, "blynk");
     }
 }
 
@@ -861,16 +986,16 @@ BLYNK_WRITE(V11)  // TOMBOL TEST POMPA (DEMO)
         if (selectedPlant == PLANT_MELON) {
             Serial.println("[DEMO] Menyalakan POMPA 1 (Melon)");
             pump1Duration = 10;  // 10 detik untuk demo
-            controlPump(1, true);
+            controlPump(1, true, "demo");
         } else if (selectedPlant == PLANT_CABE) {
             Serial.println("[DEMO] Menyalakan POMPA 2 (Cabe)");
             pump2Duration = 10;  // 10 detik untuk demo
-            controlPump(2, true);
+            controlPump(1, true, "demo");
         } else {
             Serial.println("[DEMO] ERROR: Pilih tanaman dulu (V0)");
             // Nyalakan pompa 1 untuk demo
             pump1Duration = 10;
-            controlPump(1, true);
+            controlPump(1, true, "demo");
         }
     }
 }
@@ -919,17 +1044,80 @@ BLYNK_WRITE(V15)  // SIMPAN & APPLY JADWAL
 }
 
 // ============================================
-// FUNGSI UPDATE THRESHOLD
+// FUNGSI UPDATE THRESHOLD (DINAMIS BERDASARKAN FASE)
 // ============================================
 void updateSoilThreshold() {
-    if (selectedPlant == PLANT_MELON) {
-        soilThresholdMin = MELON_THRESHOLD_MIN;
-        soilThresholdMax = MELON_THRESHOLD_MAX;
-    } else if (selectedPlant == PLANT_CABE) {
-        soilThresholdMin = CABE_THRESHOLD_MIN;
-        soilThresholdMax = CABE_THRESHOLD_MAX;
+    int minggu = getMingguKe(plantAge);
+
+    if (selectedPlant == PLANT_CABE) {
+        // Threshold Cabe berdasarkan fase (sesuai data penelitian)
+        // Fase: Pindah Tanam, Vegetatif, Pembungaan, Pembentukan Buah, Pembesaran, Pematangan
+        if (plantAge <= 7) {
+            // Fase Pindah Tanam (0-7 hari)
+            soilThresholdMin = 60;
+            soilThresholdMax = 75;
+        } else if (plantAge <= 21) {
+            // Fase Vegetatif Awal (8-21 hari)
+            soilThresholdMin = 55;
+            soilThresholdMax = 72;
+        } else if (plantAge <= 35) {
+            // Fase Vegetatif Aktif (22-35 hari)
+            soilThresholdMin = 55;
+            soilThresholdMax = 70;
+        } else if (plantAge <= 42) {
+            // Fase Pembungaan (35-42 hari)
+            soilThresholdMin = 60;
+            soilThresholdMax = 75;
+        } else if (plantAge <= 62) {
+            // Fase Pembentukan Buah (43-62 hari)
+            soilThresholdMin = 60;
+            soilThresholdMax = 75;
+        } else if (plantAge <= 69) {
+            // Fase Pembesaran Buah (63-69 hari)
+            soilThresholdMin = 55;
+            soilThresholdMax = 72;
+        } else {
+            // Fase Pematangan (70+ hari)
+            soilThresholdMin = 50;
+            soilThresholdMax = 65;
+        }
+        Serial.print("[THRESHOLD] Cabe Fase ");
+        Serial.print(getPlantPhase(plantAge, selectedPlant));
+        Serial.print(" - Min: ");
+        Serial.print(soilThresholdMin);
+        Serial.print("% | Max: ");
+        Serial.print(soilThresholdMax);
+        Serial.println("%");
+
+    } else if (selectedPlant == PLANT_MELON) {
+        // Threshold Melon berdasarkan fase
+        if (minggu <= 2) {
+            // Dormant (1-14 hari)
+            soilThresholdMin = 60;
+            soilThresholdMax = 80;
+        } else if (minggu <= 4) {
+            // Vegetatif (15-28 hari)
+            soilThresholdMin = 55;
+            soilThresholdMax = 75;
+        } else if (minggu <= 7) {
+            // Generatif (29-49 hari)
+            soilThresholdMin = 55;
+            soilThresholdMax = 75;
+        } else {
+            // Panen (50-65 hari)
+            soilThresholdMin = 55;
+            soilThresholdMax = 70;
+        }
+        Serial.print("[THRESHOLD] Melon Fase ");
+        Serial.print(getPlantPhase(plantAge, selectedPlant));
+        Serial.print(" - Min: ");
+        Serial.print(soilThresholdMin);
+        Serial.print("% | Max: ");
+        Serial.print(soilThresholdMax);
+        Serial.println("%");
+
     } else {
-        soilThresholdMin = 40;
+        soilThresholdMin = 50;
         soilThresholdMax = 70;
     }
 }
@@ -975,14 +1163,25 @@ void updateSoilStatus() {
 
 // ============================================
 // FUNGSI KONTROL POMPA
+// Pompa 1 = Cabe, Pompa 2 = Melon
 // ============================================
-void controlPump(uint8_t pumpNum, bool on) {
+void controlPump(uint8_t pumpNum, bool on, const char* reason = "idle") {
+    // Update pumpReason
+    if (on) {
+        strcpy(pumpReason, reason);
+    } else {
+        strcpy(pumpReason, "idle");
+    }
+
     if (pumpNum == 1) {
         if (on) {
             digitalWrite(RELAY_POMPA_1, RELAY_ON);
             pump1State = true;
             pump1StartTime = millis();
-            Serial.println("[POMPA 1] HIDUP");
+            delay(50);  // Stabilisasi setelah relay aktif
+            Serial.print("[POMPA 1] HIDUP (");
+            Serial.print(reason);
+            Serial.println(")");
             Blynk.virtualWrite(V2, 1);
         } else {
             digitalWrite(RELAY_POMPA_1, RELAY_OFF);
@@ -995,7 +1194,10 @@ void controlPump(uint8_t pumpNum, bool on) {
             digitalWrite(RELAY_POMPA_2, RELAY_ON);
             pump2State = true;
             pump2StartTime = millis();
-            Serial.println("[POMPA 2] HIDUP");
+            delay(50);  // Stabilisasi setelah relay aktif
+            Serial.print("[POMPA 2] HIDUP (");
+            Serial.print(reason);
+            Serial.println(")");
             Blynk.virtualWrite(V5, 1);
         } else {
             digitalWrite(RELAY_POMPA_2, RELAY_OFF);
@@ -1046,45 +1248,43 @@ void getCurrentSchedule(const IrrigationSchedule*& schedule, int& count) {
 }
 
 // ============================================
-// FUNGSI LCD DISPLAY
+// FUNGSI LCD DISPLAY - DISESUAIKAN DENGAN WEB DASHBOARD
 // ============================================
 void updateLCD() {
     static unsigned long lastLCDUpdate = 0;
-    if (millis() - lastLCDUpdate < 1000) return;  // Update LCD setiap 1 detik
+    if (millis() - lastLCDUpdate < 1500) return;  // Update LCD setiap 1.5 detik
     lastLCDUpdate = millis();
 
-    lcd.clear();
+    rtc.getTime();
 
-    // Baris 1: Info Tanaman
+    lcd->clear();
+    delay(20);
+
+    // ========== BARIS 1: WAKTU + TANAMAN ==========
+    // Format: "HH:MM Tanaman"
+    char lcdRow1[17];
+    const char* plantName = getPlantName(selectedPlant);
     if (selectedPlant == PLANT_NONE) {
-        lcd.print("Smart Irrigation");
+        sprintf(lcdRow1, "%02d:%02d    [NONE]", rtc.hour, rtc.minute);
     } else {
-        sprintf(lcdBuffer, "%s Minggu-%d", getPlantName(selectedPlant), getMingguKe(plantAge));
-        lcd.print(lcdBuffer);
+        sprintf(lcdRow1, "%02d:%02d %s", rtc.hour, rtc.minute, plantName);
     }
+    lcd->print(lcdRow1);
 
-    // Baris 2: Info Lain
-    lcd.setCursor(0, 1);
+    // ========== BARIS 2: SOIL + POMPA + MODE ==========
+    lcd->setCursor(0, 1);
+    delay(10);
 
-    if (pump1State || pump2State) {
-        // Sedang menyiram
-        if (pump1State) {
-            lcd.print("P1:ON ");
-        } else {
-            lcd.print("P1:OFF ");
-        }
-        if (pump2State) {
-            lcd.print("P2:ON");
-        } else {
-            lcd.print("P2:OFF");
-        }
+    char lcdRow2[17];
+
+    if (pump1State) {
+        // Sedang menyiram - tampilkan status pompa (kedua tanaman pakai Pompa 1)
+        sprintf(lcdRow2, "SOIL:%d%% PUMP ON ", soilMoisturePercent);
     } else {
-        // Status normal
-        sprintf(lcdBuffer, "Soil:%d%% %s",
-                soilMoisturePercent,
-                autoMode ? "AUTO" : "MANUAL");
-        lcd.print(lcdBuffer);
+        // Status normal - tampilkan mode
+        sprintf(lcdRow2, "SOIL:%d%% %s", soilMoisturePercent, autoMode ? "AUTO" : "MANUAL");
     }
+    lcd->print(lcdRow2);
 }
 
 // ============================================
@@ -1114,31 +1314,35 @@ bool isScheduledTime(const IrrigationSchedule& sched) {
 }
 
 void checkPumpTimeouts() {
-    // Cek Pompa 1 (Melon)
+    // Cek Pompa 1 (Cabe)
     if (pump1State) {
         unsigned long elapsed = millis() - pump1StartTime;
         if (elapsed >= (unsigned long)pump1Duration * 1000) {
-            controlPump(1, false);
+            controlPump(1, false, "idle");
             Serial.println("[POMPA 1] Timeout / Selesai");
         }
     }
 
-    // Cek Pompa 2 (Cabe)
+    // Cek Pompa 2 (Melon)
     if (pump2State) {
         unsigned long elapsed = millis() - pump2StartTime;
         if (elapsed >= (unsigned long)pump2Duration * 1000) {
-            controlPump(2, false);
+            controlPump(2, false, "idle");
             Serial.println("[POMPA 2] Timeout / Selesai");
         }
     }
 }
 
 // ============================================
-// FUNGSI UTAMA PENYIRAMAN OTOMATIS
+// VARIABEL UNTUK MOISTURE-BASED PUMP CONTROL
+// ============================================
+bool moistureBasedControl = true;  // Aktifkan kontrol berdasarkan kelembaban
+#define MAX_IRRIGATION_TIME 300000   // Max 5 menit (safety limit)
+
+// ============================================
+// FUNGSI UTAMA PENYIRAMAN OTOMATIS (VERSI BARU)
 // ============================================
 void runAutomaticIrrigation() {
-    checkPumpTimeouts();
-
     if (!autoMode || selectedPlant == PLANT_NONE) {
         return;
     }
@@ -1152,7 +1356,7 @@ void runAutomaticIrrigation() {
     }
 
     // Cek jadwal penyiraman
-    static unsigned long lastIrrigation[4] = {0, 0, 0, 0};
+    static unsigned long lastIrrigation[5] = {0, 0, 0, 0, 0};
     static int lastCheckedDay = -1;
 
     rtc.getTime();
@@ -1175,7 +1379,7 @@ void runAutomaticIrrigation() {
             if (currentMillis - lastIrrigation[i] > 120000) {
                 lastIrrigation[i] = currentMillis;
 
-                // Cek kelembaban tanah
+                // Baca kelembaban tanah
                 int currentMoisture = readSoilMoisture();
 
                 Serial.print("[KEL] Tanah: ");
@@ -1192,25 +1396,66 @@ void runAutomaticIrrigation() {
                     // Tanah masih cukup lembab - skip
                     Serial.print("[SKIP] ");
                     Serial.print(plantName);
-                    Serial.println(" - Tanah masih lembab (>= min), penyiraman dibatalkan!");
+                    Serial.println(" - Tanah lembab, penyiraman dibatalkan!");
                 } else {
-                    // Tanah kering - siram full
+                    // Tanah kering - mulai penyiraman
                     Serial.print("[START] ");
                     Serial.print(plantName);
-                    Serial.print(" - Menyiram (");
-                    Serial.print(sched.durasiDetik);
-                    Serial.println(" detik)");
+                    Serial.print(" - Menyiram... (target ");
+                    Serial.print(soilThresholdMax);
+                    Serial.println("%)");
 
-                    if (selectedPlant == PLANT_MELON) {
-                        pump1Duration = sched.durasiDetik;
-                        controlPump(1, true);
-                    } else if (selectedPlant == PLANT_CABE) {
-                        pump2Duration = sched.durasiDetik;
-                        controlPump(2, true);
-                    }
+                    pump1Duration = sched.durasiDetik;
+                    controlPump(1, true, "auto");  // Reason: auto
                 }
             }
         }
+    }
+
+    // ============================================
+    // MOISTURE-BASED PUMP CONTROL
+    // Cek kelembaban saat pompa sedang aktif
+    // Pompa mati jika kelembaban sudah tercapai
+    // ============================================
+    static unsigned long lastMoistureCheck = 0;
+    static unsigned long irrigationStartTime = 0;
+
+    if (pump1State) {
+        // Catat waktu mulai jika belum
+        if (irrigationStartTime == 0) {
+            irrigationStartTime = millis();
+        }
+
+        // Cek kelembaban secara periodik
+        if (currentMillis - lastMoistureCheck >= MOISTURE_CHECK_INTERVAL) {
+            lastMoistureCheck = currentMillis;
+
+            int currentMoisture = readSoilMoisture();
+            Serial.print("[MONITOR] Kelembaban saat ini: ");
+            Serial.print(currentMoisture);
+            Serial.print("% | Threshold Max: ");
+            Serial.print(soilThresholdMax);
+            Serial.println("%");
+
+            // Cek apakah kelembaban sudah tercapai
+            if (currentMoisture >= soilThresholdMax) {
+                Serial.println("[STOP] Kelembaban tercapai! Pompa dimatikan.");
+                controlPump(1, false, "idle");
+                irrigationStartTime = 0;
+                lastMoistureCheck = 0;
+            }
+            // Cek safety limit (max 5 menit)
+            else if (currentMillis - irrigationStartTime >= MAX_IRRIGATION_TIME) {
+                Serial.println("[STOP] Safety limit! Pompa dimatikan.");
+                controlPump(1, false, "idle");
+                irrigationStartTime = 0;
+                lastMoistureCheck = 0;
+            }
+        }
+    } else {
+        // Pompa mati, reset timer
+        irrigationStartTime = 0;
+        lastMoistureCheck = 0;
     }
 }
 
@@ -1271,8 +1516,11 @@ void handleStatus() {
     json += "\"phase\":\"" + String(selectedPlant == PLANT_NONE ? "-" : getPlantPhase(plantAge, selectedPlant)) + "\",";
     json += "\"week\":" + String(selectedPlant == PLANT_NONE ? 0 : getMingguKe(plantAge)) + ",";
     json += "\"moisture\":" + String(soilMoisturePercent) + ",";
+    json += "\"thresholdMin\":" + String(soilThresholdMin) + ",";
+    json += "\"thresholdMax\":" + String(soilThresholdMax) + ",";
     json += "\"pump1\":" + String(pump1State ? "true" : "false") + ",";
     json += "\"pump2\":" + String(pump2State ? "true" : "false") + ",";
+    json += "\"pumpReason\":\"" + String(pumpReason) + "\",";
     json += "\"mode\":" + String(autoMode ? "true" : "false") + ",";
     json += "\"useCustom\":" + String(useCustomSchedule ? "true" : "false") + ",";
     json += "\"schedules\":[";
@@ -1294,14 +1542,14 @@ void handleControl() {
     String cmd = server.arg("cmd");
 
     if (cmd == "pump1") {
-        controlPump(1, true);
+        controlPump(1, true, "manual");
         pump1Duration = 15;
     } else if (cmd == "pump2") {
-        controlPump(2, true);
+        controlPump(2, true, "manual");
         pump2Duration = 15;
     } else if (cmd == "stop") {
-        controlPump(1, false);
-        controlPump(2, false);
+        controlPump(1, false, "idle");
+        controlPump(2, false, "idle");
     } else if (cmd == "settings") {
         selectedPlant = (PlantType)server.arg("plant").toInt();
         plantAge = server.arg("age").toInt();
@@ -1369,10 +1617,10 @@ void checkConnections() {
         wifiConnected = false;
         blynkConnected = false;
         Serial.println("[WIFI] Koneksi terputus!");
-        lcd.clear();
-        lcd.print("WiFi OFFLINE");
-        lcd.setCursor(0, 1);
-        lcd.print("Reconnecting...");
+        lcd->clear();
+        lcd->print("WiFi OFFLINE");
+        lcd->setCursor(0, 1);
+        lcd->print("Reconnecting...");
     }
 
     // Reconnect WiFi jika needed
@@ -1411,6 +1659,7 @@ BlynkTimer statusTimer;
 BlynkTimer soilTimer;
 BlynkTimer lcdUpdateTimer;
 BlynkTimer rtcSyncTimer;
+BlynkTimer ageTimer;
 
 void sendPeriodicStatus() {
     // Status pompa
@@ -1472,12 +1721,63 @@ void syncRTCTime() {
 }
 
 // ============================================
+// AUTO INCREMENT UMUR TANAMAN
+// Setiap hari jam 00:00, umur tanaman +1
+// ============================================
+void autoIncrementPlantAge() {
+    rtc.getTime();
+
+    static int lastDayChecked = -1;
+    static int lastHourChecked = -1;
+
+    // Cek setiap hari jam 00:00 - 00:05
+    if (rtc.day != lastDayChecked && rtc.hour == 0 && rtc.minute < 5) {
+        lastDayChecked = rtc.day;
+        lastHourChecked = rtc.hour;
+
+        // Hanya increment jika ada tanaman
+        if (selectedPlant != PLANT_NONE) {
+            plantAge++;
+
+            // Cek batas maksimal
+            if (selectedPlant == PLANT_MELON && plantAge > MELON_HARI_TANAMAN) {
+                plantAge = MELON_HARI_TANAMAN;
+            } else if (selectedPlant == PLANT_CABE && plantAge > CABE_HARI_TANAMAN) {
+                plantAge = CABE_HARI_TANAMAN;
+            }
+
+            Serial.print("[AUTO] Umur tanaman sekarang: Hari ");
+            Serial.println(plantAge);
+
+            // Update threshold sesuai fase baru
+            updateSoilThreshold();
+            updatePlantInfo();
+
+            // Simpan ke preferences
+            savePreferences();
+
+            // Kirim ke Blynk
+            if (blynkConnected) {
+                Blynk.virtualWrite(V1, plantAge);
+                Blynk.virtualWrite(V10, plantInfoBuffer);
+            }
+        }
+    }
+
+    // Reset check setiap hari jam 01:00 (untuk keamanan)
+    if (rtc.hour == 1 && lastHourChecked == 0) {
+        lastDayChecked = -1;
+        lastHourChecked = -1;
+    }
+}
+
+// ============================================
 // SETUP
 // ============================================
 void setup()
 {
     Serial.begin(115200);
-    
+
     // Muat pengaturan dari EEPROM/Preferences
     loadPreferences();
 
@@ -1490,6 +1790,12 @@ void setup()
     Wire.begin(I2C_SDA, I2C_SCL);
     Serial.println("[I2C] SDA=G21, SCL=G22");
 
+    // Scan I2C untuk deteksi alamat
+    scanI2CAddress();
+
+    // Inisialisasi LCD dengan alamat yang ditemukan
+    initLCD();
+
     // Konfigurasi Pin Output & Matikan Pompa (Pastikan Mati saat Boot)
     // Untuk Active Low Relay, set HIGH agar relay mati
     pinMode(RELAY_POMPA_1, OUTPUT);
@@ -1499,14 +1805,6 @@ void setup()
     pinMode(SOIL_MOISTURE_PIN, INPUT);
 
     Serial.println("[RELAY] Pompa dimatikan saat startup");
-
-    // Inisialisasi LCD
-    lcd.init();
-    lcd.backlight();
-    lcd.print("Smart Irrigation");
-    lcd.setCursor(0, 1);
-    lcd.print("Init System...");
-    Serial.println("[LCD] Inisialisasi selesai");
 
     // Inisialisasi RTC
     if (rtc.begin()) {
@@ -1527,8 +1825,8 @@ void setup()
                       rtc.day, rtc.month, rtc.year);
     } else {
         Serial.println("[RTC] ERROR - DS3231 tidak terdeteksi!");
-        lcd.clear();
-        lcd.print("RTC ERROR!");
+        lcd->clear();
+        lcd->print("RTC ERROR!");
     }
 
     // Baca sensor pertama kali
@@ -1579,6 +1877,7 @@ void setup()
     soilTimer.setInterval(10000L, readSoilSensor);         // Baca sensor setiap 10 detik
     lcdUpdateTimer.setInterval(1000L, updateLCDDisplay);   // Update LCD setiap 1 detik
     rtcSyncTimer.setInterval(60000L, syncRTCTime);         // Sync RTC ke Blynk setiap 60 detik
+    ageTimer.setInterval(60000L, autoIncrementPlantAge);   // Cek umur tanaman setiap 1 menit
 
     // Inisialisasi
     updateSoilThreshold();
@@ -1589,8 +1888,8 @@ void setup()
     Serial.println("  Sistem siap digunakan!");
     Serial.println("====================================\n");
 
-    lcd.clear();
-    lcd.print("System Ready!");
+    lcd->clear();
+    lcd->print("System Ready!");
     delay(1000);
 }
 
@@ -1599,10 +1898,25 @@ void setup()
 // ============================================
 void loop()
 {
-    // Cek koneksi WiFi & Blynk
-    checkConnections();
+    // Auto reconnect WiFi jika terputus
+    if (WiFi.status() != WL_CONNECTED) {
+        wifiConnected = false;
+        blynkConnected = false;
+        Serial.println("[WIFI] Koneksi terputus!");
+        delay(1000);
+        WiFi.reconnect();
+        int attempts = 0;
+        while (WiFi.status() != WL_CONNECTED && attempts < 20) {
+            delay(500);
+            attempts++;
+        }
+        if (WiFi.status() == WL_CONNECTED) {
+            wifiConnected = true;
+            setupWebServer();
+            Serial.println("[WIFI] Reconnected! IP: " + WiFi.localIP().toString());
+        }
+    }
 
-    // Jalankan Web Server
     server.handleClient();
 
     // Jalankan Blynk
@@ -1615,6 +1929,7 @@ void loop()
     soilTimer.run();
     lcdUpdateTimer.run();
     rtcSyncTimer.run();
+    ageTimer.run();
 
     // Jalankan penyiraman otomatis
     runAutomaticIrrigation();

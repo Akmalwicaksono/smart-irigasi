@@ -1270,7 +1270,7 @@ void updateLCD() {
 
     // ========== BARIS 1: WAKTU + TANAMAN ==========
     // Format: "HH:MM Tanaman"
-    char lcdRow1[17];
+    char lcdRow1[32];
     const char* plantName = getPlantName(selectedPlant);
     if (selectedPlant == PLANT_NONE) {
         sprintf(lcdRow1, "%02d:%02d    [NONE]", rtc.hour, rtc.minute);
@@ -1283,11 +1283,11 @@ void updateLCD() {
     lcd->setCursor(0, 1);
     delay(10);
 
-    char lcdRow2[17];
+    char lcdRow2[32];
 
     if (pump1State) {
         // Sedang menyiram - tampilkan status pompa (kedua tanaman pakai Pompa 1)
-        sprintf(lcdRow2, "SOIL:%d%% PUMP ON ", soilMoisturePercent);
+        sprintf(lcdRow2, "SOIL:%d%% PUMP ON", soilMoisturePercent);
     } else {
         // Status normal - tampilkan mode
         sprintf(lcdRow2, "SOIL:%d%% %s", soilMoisturePercent, autoMode ? "AUTO" : "MANUAL");

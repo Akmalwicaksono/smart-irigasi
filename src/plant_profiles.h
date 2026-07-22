@@ -19,9 +19,8 @@
 #define DEFAULT_THRESHOLD_MAX   75   // Batas atas default (%)
 #define MELON_THRESHOLD_MIN     60   // Melon
 #define MELON_THRESHOLD_MAX     80
-// Cabe threshold dinamis per fase (sesuai data penelitian)
-#define CABE_THRESHOLD_MIN      55   // Cabe (sesuai data minimum)
-#define CABE_THRESHOLD_MAX      75  // Cabe (sesuai data ideal)
+// Threshold Cabe sekarang bersifat dinamis per fase,
+// diatur oleh fungsi getCabeThresholds()
 
 // ============================================
 // KONSTANTA UMUR TANAMAN (dalam hari)
@@ -87,28 +86,16 @@ const IrrigationSchedule MELON_MINGGU_8_9[] = {
 // ============================================
 // JADWAL PENYIRAMAN CABE (JADWAL ASLI)
 // ============================================
-
-const IrrigationSchedule CABE_MINGGU_1_2[] = {
-    {7, 30, 90},    // 07:30 - 1.5 menit (90 detik)
-    {17, 30, 90}    // 17:30 - 1.5 menit
+// Failsafe timeout diset 120 detik, pompa otomatis mati jika target kelembaban tercapai
+const IrrigationSchedule CABE_JADWAL_2X[] = {
+    {6, 30, 120},    // 06:30
+    {16, 0, 120}     // 16:00
 };
 
-const IrrigationSchedule CABE_MINGGU_3_6[] = {
-    {6, 30, 105},   // 06:30 - ~1.75 menit (105 detik)
-    {11, 0, 105},   // 11:00 - ~1.75 menit
-    {17, 0, 105}    // 17:00 - ~1.75 menit
-};
-
-const IrrigationSchedule CABE_MINGGU_7_12[] = {
-    {6, 0, 120},    // 06:00 - ~2 menit (120 detik)
-    {10, 30, 120},  // 10:30 - ~2 menit
-    {16, 0, 120},   // 16:00 - ~2 menit
-    {19, 0, 120}    // 19:00 - ~2 menit
-};
-
-const IrrigationSchedule CABE_MINGGU_13[] = {
-    {7, 0, 120},    // 07:00 - 2 menit
-    {16, 30, 120}   // 16:30 - 2 menit
+const IrrigationSchedule CABE_JADWAL_3X[] = {
+    {6, 30, 120},    // 06:30
+    {12, 0, 120},    // 12:00
+    {16, 30, 120}    // 16:30
 };
 
 // ============================================
@@ -158,20 +145,41 @@ inline const IrrigationSchedule* getMelonSchedule(int hari, int& jumlahJadwal) {
 }
 
 inline const IrrigationSchedule* getCabeSchedule(int hari, int& jumlahJadwal) {
-    int minggu = getMingguKe(hari);
+    if (hari <= 35) { // Fase 1, 2, 3 (Hari 0-35) -> 2x sehari
+        jumlahJadwal = sizeof(CABE_JADWAL_2X) / sizeof(IrrigationSchedule);
+        return CABE_JADWAL_2X;
+    } else if (hari <= 69) { // Fase 4, 5, 6 (Hari 36-69) -> 3x sehari
+        jumlahJadwal = sizeof(CABE_JADWAL_3X) / sizeof(IrrigationSchedule);
+        return CABE_JADWAL_3X;
+    } else { // Fase 7 (Hari 70+) -> 2x sehari
+        jumlahJadwal = sizeof(CABE_JADWAL_2X) / sizeof(IrrigationSchedule);
+        return CABE_JADWAL_2X;
+    }
+}
 
-    if (minggu <= 2) {
-        jumlahJadwal = sizeof(CABE_MINGGU_1_2) / sizeof(IrrigationSchedule);
-        return CABE_MINGGU_1_2;
-    } else if (minggu <= 6) {
-        jumlahJadwal = sizeof(CABE_MINGGU_3_6) / sizeof(IrrigationSchedule);
-        return CABE_MINGGU_3_6;
-    } else if (minggu <= 12) {
-        jumlahJadwal = sizeof(CABE_MINGGU_7_12) / sizeof(IrrigationSchedule);
-        return CABE_MINGGU_7_12;
-    } else {
-        jumlahJadwal = sizeof(CABE_MINGGU_13) / sizeof(IrrigationSchedule);
-        return CABE_MINGGU_13;
+// ============================================
+// FUNGSI THRESHOLD DINAMIS
+// ============================================
+inline void getMelonThresholds(int hari, int& minMoisture, int& maxMoisture) {
+    minMoisture = MELON_THRESHOLD_MIN;
+    maxMoisture = MELON_THRESHOLD_MAX;
+}
+
+inline void getCabeThresholds(int hari, int& minMoisture, int& maxMoisture) {
+    if (hari <= 7) { 
+        minMoisture = 60; maxMoisture = 75; // Pindah Tanam
+    } else if (hari <= 21) { 
+        minMoisture = 55; maxMoisture = 72; // Vegetatif Awal
+    } else if (hari <= 35) { 
+        minMoisture = 55; maxMoisture = 70; // Vegetatif Aktif
+    } else if (hari <= 42) { 
+        minMoisture = 60; maxMoisture = 75; // Pembungaan
+    } else if (hari <= 62) { 
+        minMoisture = 60; maxMoisture = 75; // Pembentukan Buah
+    } else if (hari <= 69) { 
+        minMoisture = 55; maxMoisture = 72; // Pembesaran Buah
+    } else { 
+        minMoisture = 50; maxMoisture = 65; // Pematangan
     }
 }
 

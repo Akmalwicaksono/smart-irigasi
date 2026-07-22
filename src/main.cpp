@@ -344,13 +344,13 @@ svg.icon-md { width: 18px; height: 18px; }
   <div style="overflow-x:auto;">
     <table class="profile-table">
       <tr><th>Fase</th><th>Minggu</th><th>Jadwal</th><th>Threshold</th><th>Aksi</th></tr>
-      <tr><td>Pindah Tanam</td><td>1</td><td>07:30, 17:30 (1.5 mnt)</td><td>&lt; 55%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 1)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
-      <tr><td>Vegetatif Awal</td><td>2-3</td><td>2-3x sehari (1.5-1.75 mnt)</td><td>&lt; 55%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 2)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
-      <tr><td>Vegetatif Aktif</td><td>4-5</td><td>06:30, 11:00, 17:00 (1.75 mnt)</td><td>&lt; 55%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 4)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
-      <tr><td>Pembungaan</td><td>6</td><td>06:30, 11:00, 17:00 (1.75 mnt)</td><td>&lt; 55%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 6)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
-      <tr><td>Pemb. Buah</td><td>7-9</td><td>06:00, 10:30, 16:00, 19:00 (2 mnt)</td><td>&lt; 55%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 7)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
-      <tr><td>Pembesaran</td><td>10</td><td>06:00, 10:30, 16:00, 19:00 (2 mnt)</td><td>&lt; 55%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 10)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
-      <tr><td>Pematangan</td><td>11-13</td><td>2-4x sehari (2 mnt)</td><td>&lt; 55%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 11)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Pindah Tanam</td><td>1</td><td>06:30, 16:00 (Failsafe 2mnt)</td><td>60% - 75%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 1)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Vegetatif Awal</td><td>2-3</td><td>06:30, 16:00 (Failsafe 2mnt)</td><td>55% - 72%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 2)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Vegetatif Aktif</td><td>4-5</td><td>06:30, 16:00 (Failsafe 2mnt)</td><td>55% - 70%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 4)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Pembungaan</td><td>6</td><td>06:30, 12:00, 16:30 (Fs 2m)</td><td>60% - 75%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 6)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Pemb. Buah</td><td>7-9</td><td>06:30, 12:00, 16:30 (Fs 2m)</td><td>60% - 75%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 7)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Pembesaran</td><td>10</td><td>06:30, 12:00, 16:30 (Fs 2m)</td><td>55% - 72%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 10)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
+      <tr><td>Pematangan</td><td>11-13</td><td>06:30, 16:00 (Failsafe 2mnt)</td><td>50% - 65%</td><td><button class="btn btn-sm btn-primary" onclick="simulasi(2, 11)" style="padding:4px 8px; min-width:auto;">▶ Tes</button></td></tr>
     </table>
   </div>
 </div>
@@ -1051,36 +1051,8 @@ void updateSoilThreshold() {
 
     if (selectedPlant == PLANT_CABE) {
         // Threshold Cabe berdasarkan fase (sesuai data penelitian)
-        // Fase: Pindah Tanam, Vegetatif, Pembungaan, Pembentukan Buah, Pembesaran, Pematangan
-        if (plantAge <= 7) {
-            // Fase Pindah Tanam (0-7 hari)
-            soilThresholdMin = 60;
-            soilThresholdMax = 75;
-        } else if (plantAge <= 21) {
-            // Fase Vegetatif Awal (8-21 hari)
-            soilThresholdMin = 55;
-            soilThresholdMax = 72;
-        } else if (plantAge <= 35) {
-            // Fase Vegetatif Aktif (22-35 hari)
-            soilThresholdMin = 55;
-            soilThresholdMax = 70;
-        } else if (plantAge <= 42) {
-            // Fase Pembungaan (35-42 hari)
-            soilThresholdMin = 60;
-            soilThresholdMax = 75;
-        } else if (plantAge <= 62) {
-            // Fase Pembentukan Buah (43-62 hari)
-            soilThresholdMin = 60;
-            soilThresholdMax = 75;
-        } else if (plantAge <= 69) {
-            // Fase Pembesaran Buah (63-69 hari)
-            soilThresholdMin = 55;
-            soilThresholdMax = 72;
-        } else {
-            // Fase Pematangan (70+ hari)
-            soilThresholdMin = 50;
-            soilThresholdMax = 65;
-        }
+        getCabeThresholds(plantAge, soilThresholdMin, soilThresholdMax);
+
         Serial.print("[THRESHOLD] Cabe Fase ");
         Serial.print(getPlantPhase(plantAge, selectedPlant));
         Serial.print(" - Min: ");
@@ -1091,23 +1063,8 @@ void updateSoilThreshold() {
 
     } else if (selectedPlant == PLANT_MELON) {
         // Threshold Melon berdasarkan fase
-        if (minggu <= 2) {
-            // Dormant (1-14 hari)
-            soilThresholdMin = 60;
-            soilThresholdMax = 80;
-        } else if (minggu <= 4) {
-            // Vegetatif (15-28 hari)
-            soilThresholdMin = 55;
-            soilThresholdMax = 75;
-        } else if (minggu <= 7) {
-            // Generatif (29-49 hari)
-            soilThresholdMin = 55;
-            soilThresholdMax = 75;
-        } else {
-            // Panen (50-65 hari)
-            soilThresholdMin = 55;
-            soilThresholdMax = 70;
-        }
+        getMelonThresholds(plantAge, soilThresholdMin, soilThresholdMax);
+
         Serial.print("[THRESHOLD] Melon Fase ");
         Serial.print(getPlantPhase(plantAge, selectedPlant));
         Serial.print(" - Min: ");
@@ -1314,21 +1271,31 @@ bool isScheduledTime(const IrrigationSchedule& sched) {
 }
 
 void checkPumpTimeouts() {
-    // Cek Pompa 1 (Cabe)
+    // Cek Pompa 1 (Melon / Semua Tanaman kalau pompa gabung)
     if (pump1State) {
         unsigned long elapsed = millis() - pump1StartTime;
-        if (elapsed >= (unsigned long)pump1Duration * 1000) {
-            controlPump(1, false, "idle");
-            Serial.println("[POMPA 1] Timeout / Selesai");
+        if (soilMoisturePercent >= soilThresholdMax) {
+            // Target kelembaban tercapai, STOP pompa!
+            controlPump(1, false);
+            Serial.println("[POMPA 1] Target kelembaban TERCAPAI! Pompa Mati Otomatis.");
+        } else if (elapsed >= (unsigned long)pump1Duration * 1000) {
+            // Failsafe timeout tercapai, STOP pompa!
+            controlPump(1, false);
+            Serial.println("[POMPA 1] Timeout failsafe (durasi habis)");
         }
     }
 
-    // Cek Pompa 2 (Melon)
+    // Cek Pompa 2 (Cabe - jika pin dipisah)
     if (pump2State) {
         unsigned long elapsed = millis() - pump2StartTime;
-        if (elapsed >= (unsigned long)pump2Duration * 1000) {
-            controlPump(2, false, "idle");
-            Serial.println("[POMPA 2] Timeout / Selesai");
+        if (soilMoisturePercent >= soilThresholdMax) {
+            // Target kelembaban tercapai, STOP pompa!
+            controlPump(2, false);
+            Serial.println("[POMPA 2] Target kelembaban TERCAPAI! Pompa Mati Otomatis.");
+        } else if (elapsed >= (unsigned long)pump2Duration * 1000) {
+            // Failsafe timeout tercapai, STOP pompa!
+            controlPump(2, false);
+            Serial.println("[POMPA 2] Timeout failsafe (durasi habis)");
         }
     }
 }

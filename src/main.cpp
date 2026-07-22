@@ -267,6 +267,17 @@ svg.icon-md { width: 18px; height: 18px; }
 </div>
 </div>
 
+<!-- History Card -->
+<div class="card">
+<h2>
+  <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+  Riwayat Penyiraman
+</h2>
+<div class="sched-list" id="historyList">
+  <div style="color:var(--text-muted); font-size:14px; text-align:center;">Belum ada riwayat penyiraman.</div>
+</div>
+</div>
+
 <!-- Plant Selection Card -->
 <div class="card">
 <h2>
@@ -505,6 +516,19 @@ function updateStatus() {
       document.getElementById('tableCabe').style.display = (data.plantType == 2) ? 'block' : 'none';
     } else {
       pCard.style.display = 'none';
+    }
+
+    // Render History
+    var histList = document.getElementById('historyList');
+    if (data.history && data.history.length > 0) {
+      var hHtml = '';
+      data.history.forEach(log => {
+        var icon = log.includes("ON") ? "💧" : "✅";
+        hHtml += '<div class="sched-item" style="padding:10px 14px; margin-bottom:4px;"><div class="sched-info" style="font-size:14px; font-weight:500;">' + icon + ' ' + log + '</div></div>';
+      });
+      histList.innerHTML = hHtml;
+    } else {
+      histList.innerHTML = '<div style="color:var(--text-muted); font-size:14px; text-align:center;">Belum ada riwayat penyiraman.</div>';
     }
 
     // Render schedule list
@@ -837,6 +861,31 @@ int pump1Duration = 0;
 int pump2Duration = 0;
 char pumpReason[20] = "idle";  // Alasan pompa aktif: idle, auto, manual
 
+// ============================================
+// RIWAYAT PENYIRAMAN
+// ============================================
+String wateringHistory[10];
+int historyCount = 0;
+
+void addHistory(String logMsg) {
+    char timeStr[24];
+    sprintf(timeStr, "%02d/%02d %02d:%02d", rtc.day, rtc.month, rtc.hour, rtc.minute);
+    String fullLog = String(timeStr) + " - " + logMsg;
+    
+    if (historyCount < 10) {
+        for (int i = historyCount; i > 0; i--) {
+            wateringHistory[i] = wateringHistory[i-1];
+        }
+        wateringHistory[0] = fullLog;
+        historyCount++;
+    } else {
+        for (int i = 9; i > 0; i--) {
+            wateringHistory[i] = wateringHistory[i-1];
+        }
+        wateringHistory[0] = fullLog;
+    }
+}
+
 // Status sensor
 int soilMoisturePercent = 0;
 int soilThresholdMin = 40;
@@ -1126,8 +1175,10 @@ void controlPump(uint8_t pumpNum, bool on, const char* reason = "idle") {
     // Update pumpReason
     if (on) {
         strcpy(pumpReason, reason);
+        addHistory("Pompa ON (" + String(reason) + ")");
     } else {
         strcpy(pumpReason, "idle");
+        addHistory("Pompa OFF (Kel: " + String(soilMoisturePercent) + "%)");
     }
 
     if (pumpNum == 1) {
@@ -1496,6 +1547,12 @@ void handleStatus() {
         json += "\"m\":" + String(customSchedules[i].menit) + ",";
         json += "\"d\":" + String(customSchedules[i].durasiDetik) + "}";
         if(i < customScheduleCount - 1) json += ",";
+    }
+    json += "],";
+    json += "\"history\":[";
+    for(int i = 0; i < historyCount; i++) {
+        json += "\"" + wateringHistory[i] + "\"";
+        if(i < historyCount - 1) json += ",";
     }
     json += "],";
     json += "\"wifi\":" + String(wifiConnected ? "true" : "false") + ",";

@@ -1416,6 +1416,7 @@ void runAutomaticIrrigation() {
 
     // Cek jadwal penyiraman
     static unsigned long lastIrrigation[5] = {0, 0, 0, 0, 0};
+    static unsigned long lastPreReport[5] = {0, 0, 0, 0, 0};
     static int lastCheckedDay = -1;
 
     rtc.getTime();
@@ -1423,6 +1424,7 @@ void runAutomaticIrrigation() {
 
     if (currentDay != lastCheckedDay) {
         memset(lastIrrigation, 0, sizeof(lastIrrigation));
+        memset(lastPreReport, 0, sizeof(lastPreReport));
         lastCheckedDay = currentDay;
     }
 
@@ -1432,8 +1434,26 @@ void runAutomaticIrrigation() {
         const IrrigationSchedule& sched = schedule[i];
 
         int scheduleTimeMinutes = sched.jam * 60 + sched.menit;
+        int preReportTimeMinutes = scheduleTimeMinutes - 60;
+        if (preReportTimeMinutes < 0) preReportTimeMinutes += 1440; // Jika jadwal jam 00:30, report jam 23:30
+
         int currentTimeMinutes = rtc.hour * 60 + rtc.minute;
 
+        // Cek Laporan 1 Jam Sebelum Jadwal
+        if (currentTimeMinutes == preReportTimeMinutes) {
+            if (lastPreReport[i] == 0 || (currentMillis - lastPreReport[i] > 120000)) {
+                lastPreReport[i] = currentMillis;
+                int currentMoisture = readSoilMoisture();
+                
+                char timeBuf[10];
+                sprintf(timeBuf, "%02d:%02d", sched.jam, sched.menit);
+                
+                String msg = "📊 *LAPORAN PRA-PENYIRAMAN*\nJadwal berikutnya: " + String(timeBuf) + "\nKelembaban saat ini: " + String(currentMoisture) + "%\n_Mengecek 1 jam sebelum siram._";
+                sendTelegramMessage(msg);
+            }
+        }
+
+        // Cek Jadwal Penyiraman Utama
         if (currentTimeMinutes == scheduleTimeMinutes) {
             if (lastIrrigation[i] == 0 || (currentMillis - lastIrrigation[i] > 120000)) {
                 lastIrrigation[i] = currentMillis;

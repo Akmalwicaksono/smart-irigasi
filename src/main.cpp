@@ -1410,13 +1410,13 @@ void runAutomaticIrrigation() {
 
                 const char* plantName = getPlantName(selectedPlant);
 
-                if (currentMoisture >= soilThresholdMin) {
-                    // Tanah masih cukup lembab - skip
+                if (currentMoisture >= soilThresholdMax) {
+                    // Tanah sudah mencapai target maksimal - skip
                     Serial.print("[SKIP] ");
                     Serial.print(plantName);
-                    Serial.println(" - Tanah lembab, penyiraman dibatalkan!");
+                    Serial.println(" - Tanah basah (Max), penyiraman dibatalkan!");
                 } else {
-                    // Tanah kering - mulai penyiraman
+                    // Tanah belum maksimal - mulai penyiraman
                     Serial.print("[START] ");
                     Serial.print(plantName);
                     Serial.print(" - Menyiram... (target ");

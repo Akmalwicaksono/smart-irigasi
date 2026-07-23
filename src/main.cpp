@@ -787,8 +787,8 @@ void initLCD() {
 // ============================================
 
 // WiFi Credentials
-#define WIFI_SSID         "iPhone Akmal"
-#define WIFI_PASSWORD     "12345678"
+#define WIFI_SSID         "UPB UKM"
+#define WIFI_PASSWORD     "kompetitif1"
 
 // Blynk Authentication Token
 #define BLYNK_AUTH_TOKEN  "ElCFaWJO1Tvd6KTEzHsZFkRihHxMTecU"
@@ -1394,7 +1394,7 @@ void runAutomaticIrrigation() {
         int currentTimeMinutes = rtc.hour * 60 + rtc.minute;
 
         if (currentTimeMinutes == scheduleTimeMinutes) {
-            if (currentMillis - lastIrrigation[i] > 120000) {
+            if (lastIrrigation[i] == 0 || (currentMillis - lastIrrigation[i] > 120000)) {
                 lastIrrigation[i] = currentMillis;
 
                 // Baca kelembaban tanah

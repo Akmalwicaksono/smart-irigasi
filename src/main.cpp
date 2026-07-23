@@ -787,8 +787,8 @@ void initLCD() {
 // ============================================
 
 // WiFi Credentials
-#define WIFI_SSID         "UPB UKM"
-#define WIFI_PASSWORD     "kompetitif1"
+#define WIFI_SSID         "iPhone Akmal"
+#define WIFI_PASSWORD     "12345678"
 
 // Blynk Authentication Token
 #define BLYNK_AUTH_TOKEN  "ElCFaWJO1Tvd6KTEzHsZFkRihHxMTecU"
@@ -1950,8 +1950,20 @@ void loop()
     server.handleClient();
 
     // Jalankan Blynk
-    if (wifiConnected && blynkConnected) {
-        Blynk.run();
+    if (wifiConnected) {
+        if (blynkConnected) {
+            Blynk.run();
+        } else {
+            static unsigned long lastBlynkReconnect = 0;
+            if (millis() - lastBlynkReconnect > 10000) {
+                lastBlynkReconnect = millis();
+                Serial.println("[BLYNK] Reconnecting...");
+                if (Blynk.connect()) {
+                    blynkConnected = true;
+                    Serial.println("[BLYNK] Reconnected!");
+                }
+            }
+        }
     }
 
     // Jalankan semua timer

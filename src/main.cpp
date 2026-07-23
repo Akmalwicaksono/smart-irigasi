@@ -1430,51 +1430,9 @@ void runAutomaticIrrigation() {
         }
     }
 
-    // ============================================
-    // MOISTURE-BASED PUMP CONTROL
-    // Cek kelembaban saat pompa sedang aktif
-    // Pompa mati jika kelembaban sudah tercapai
-    // ============================================
-    static unsigned long lastMoistureCheck = 0;
-    static unsigned long irrigationStartTime = 0;
-
-    if (pump1State) {
-        // Catat waktu mulai jika belum
-        if (irrigationStartTime == 0) {
-            irrigationStartTime = millis();
-        }
-
-        // Cek kelembaban secara periodik
-        if (currentMillis - lastMoistureCheck >= MOISTURE_CHECK_INTERVAL) {
-            lastMoistureCheck = currentMillis;
-
-            int currentMoisture = readSoilMoisture();
-            Serial.print("[MONITOR] Kelembaban saat ini: ");
-            Serial.print(currentMoisture);
-            Serial.print("% | Threshold Max: ");
-            Serial.print(soilThresholdMax);
-            Serial.println("%");
-
-            // Cek apakah kelembaban sudah tercapai
-            if (currentMoisture >= soilThresholdMax) {
-                Serial.println("[STOP] Kelembaban tercapai! Pompa dimatikan.");
-                controlPump(1, false, "idle");
-                irrigationStartTime = 0;
-                lastMoistureCheck = 0;
-            }
-            // Cek safety limit (max 5 menit)
-            else if (currentMillis - irrigationStartTime >= MAX_IRRIGATION_TIME) {
-                Serial.println("[STOP] Safety limit! Pompa dimatikan.");
-                controlPump(1, false, "idle");
-                irrigationStartTime = 0;
-                lastMoistureCheck = 0;
-            }
-        }
-    } else {
-        // Pompa mati, reset timer
-        irrigationStartTime = 0;
-        lastMoistureCheck = 0;
-    }
+    // Fitur pemantauan otomatis saat pompa menyala (durasi dan kelembaban)
+    // Sekarang ditangani secara terpusat oleh fungsi checkPumpTimeouts() di dalam loop() utama.
+    // Hal ini memastikan durasi yang diset dari jadwal kustom (misal 10 detik) benar-benar dieksekusi.
 }
 
 // ============================================
@@ -1975,4 +1933,7 @@ void loop()
 
     // Jalankan penyiraman otomatis
     runAutomaticIrrigation();
+
+    // Cek durasi pompa (matikan jika waktunya habis atau tanah sudah basah)
+    checkPumpTimeouts();
 }

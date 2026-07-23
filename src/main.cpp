@@ -36,6 +36,8 @@
 
 #include <Arduino.h>
 #include <WiFi.h>
+#include <HTTPClient.h>
+#include <WiFiClientSecure.h>
 #include <time.h>
 #include <Wire.h>
 #include <WebServer.h>
@@ -1168,6 +1170,38 @@ void updateSoilStatus() {
 }
 
 // ============================================
+// FUNGSI NOTIFIKASI TELEGRAM
+// ============================================
+const char* TELEGRAM_BOT_TOKEN = "8795920243:AAF8FHo7kiJBQslV2K0mIr1lDHTjGuskHdQ";
+const char* TELEGRAM_CHAT_ID = "8901936018";
+
+void sendTelegramMessage(String message) {
+    if (WiFi.status() == WL_CONNECTED) {
+        WiFiClientSecure client;
+        client.setInsecure(); // Abaikan sertifikat SSL untuk kemudahan
+        
+        // Ganti spasi dengan %20 dan enter dengan %0A untuk URL
+        message.replace(" ", "%20");
+        message.replace("\n", "%0A");
+        
+        HTTPClient http;
+        String url = "https://api.telegram.org/bot" + String(TELEGRAM_BOT_TOKEN) + "/sendMessage?chat_id=" + String(TELEGRAM_CHAT_ID) + "&parse_mode=Markdown&text=" + message;
+        
+        http.begin(client, url);
+        int httpResponseCode = http.GET();
+        
+        if (httpResponseCode > 0) {
+            Serial.print("[TELEGRAM] Terkirim, kode: ");
+            Serial.println(httpResponseCode);
+        } else {
+            Serial.print("[TELEGRAM] Gagal: ");
+            Serial.println(httpResponseCode);
+        }
+        http.end();
+    }
+}
+
+// ============================================
 // FUNGSI KONTROL POMPA
 // Pompa 1 = Cabe, Pompa 2 = Melon
 // ============================================
@@ -1188,14 +1222,21 @@ void controlPump(uint8_t pumpNum, bool on, const char* reason = "idle") {
             pump1StartTime = millis();
             delay(50);  // Stabilisasi setelah relay aktif
             Serial.print("[POMPA 1] HIDUP (");
-            Serial.print(reason);
             Serial.println(")");
             Blynk.virtualWrite(V2, 1);
+            
+            // Kirim notif ke Telegram
+            String msg = "💦 *POMPA MENYALA*\nAlasan: " + String(reason) + "\nKelembaban: " + String(soilMoisturePercent) + "%";
+            sendTelegramMessage(msg);
         } else {
             digitalWrite(RELAY_POMPA_1, RELAY_OFF);
             pump1State = false;
             Serial.println("[POMPA 1] MATI");
             Blynk.virtualWrite(V2, 0);
+            
+            // Kirim notif ke Telegram
+            String msg = "🛑 *POMPA BERHENTI*\nAlasan: " + String(reason) + "\nKelembaban Akhir: " + String(soilMoisturePercent) + "%";
+            sendTelegramMessage(msg);
         }
     } else if (pumpNum == 2) {
         if (on) {

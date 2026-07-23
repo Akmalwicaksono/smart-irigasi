@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <style>
 :root {
   --bg-color: #0F172A;
@@ -362,13 +363,31 @@ svg.icon-md { width: 18px; height: 18px; }
 <div class="footer">Smart Irrigation System | Cloud Edition (Powered by Blynk)</div>
 </div>
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script>
-const TOKEN = "ElCFaWJO1Tvd6KTEzHsZFkRihHxMTecU";
-const URL_GET = `https://blynk.cloud/external/api/get?token=${TOKEN}`;
-const URL_UPDATE = `https://blynk.cloud/external/api/update?token=${TOKEN}`;
+const URL_GET = "http://blynk.cloud/external/api/get?token=w3P-02xXnC08b_03-f14d-9h3vB6gGjE";
+const URL_UPDATE = "http://blynk.cloud/external/api/update?token=w3P-02xXnC08b_03-f14d-9h3vB6gGjE";
 
 let currentPlant = 0;
 let initialLoad = true;
+let lastPumpState = -1;
+
+function showToast(msg, type = "success") {
+  Toastify({
+    text: msg,
+    duration: 3000,
+    close: true,
+    gravity: "top", 
+    position: "right", 
+    style: {
+      background: type === "success" ? "#10B981" : (type === "warning" ? "#F59E0B" : "#EF4444"),
+      fontFamily: "Outfit, sans-serif",
+      borderRadius: "8px",
+      fontWeight: "500",
+      boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+    }
+  }).showToast();
+}
 
 function showAlert(msg, type) {
   var alert = document.getElementById('alertBox');
@@ -439,6 +458,17 @@ async function updateStatus() {
 
     // Pump
     const pumpState = parseInt(data.V2 || 0);
+    
+    // Toast Notification Logic
+    if (lastPumpState !== -1 && lastPumpState !== pumpState) {
+        if (pumpState === 1) {
+            showToast("💦 Pompa Menyala!", "success");
+        } else {
+            showToast("🛑 Pompa Berhenti!", "warning");
+        }
+    }
+    lastPumpState = pumpState;
+
     var p1 = document.getElementById('pump1');
     if (pumpState === 1) {
       p1.innerHTML = 'ON <span class="pumping">●</span>';

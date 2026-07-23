@@ -1325,8 +1325,8 @@ void checkPumpTimeouts() {
     // Cek Pompa 1 (Melon / Semua Tanaman kalau pompa gabung)
     if (pump1State) {
         unsigned long elapsed = millis() - pump1StartTime;
-        if (soilMoisturePercent >= soilThresholdMax) {
-            // Target kelembaban tercapai, STOP pompa!
+        if (soilMoisturePercent >= (soilThresholdMax - 5)) {
+            // Target kelembaban tercapai (mendekati max), STOP pompa!
             controlPump(1, false);
             Serial.println("[POMPA 1] Target kelembaban TERCAPAI! Pompa Mati Otomatis.");
         } else if (elapsed >= (unsigned long)pump1Duration * 1000) {
@@ -1339,8 +1339,8 @@ void checkPumpTimeouts() {
     // Cek Pompa 2 (Cabe - jika pin dipisah)
     if (pump2State) {
         unsigned long elapsed = millis() - pump2StartTime;
-        if (soilMoisturePercent >= soilThresholdMax) {
-            // Target kelembaban tercapai, STOP pompa!
+        if (soilMoisturePercent >= (soilThresholdMax - 5)) {
+            // Target kelembaban tercapai (mendekati max), STOP pompa!
             controlPump(2, false);
             Serial.println("[POMPA 2] Target kelembaban TERCAPAI! Pompa Mati Otomatis.");
         } else if (elapsed >= (unsigned long)pump2Duration * 1000) {
@@ -1410,7 +1410,7 @@ void runAutomaticIrrigation() {
 
                 const char* plantName = getPlantName(selectedPlant);
 
-                if (currentMoisture >= soilThresholdMax) {
+                if (currentMoisture >= (soilThresholdMax - 5)) {
                     // Tanah sudah mencapai target maksimal - skip
                     Serial.print("[SKIP] ");
                     Serial.print(plantName);

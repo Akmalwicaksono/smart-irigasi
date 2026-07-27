@@ -832,8 +832,8 @@ void initLCD() {
 // ============================================
 #define SOIL_SENSOR_READ_INTERVAL  1000
 #define SOIL_READINGS_COUNT        10
-#define SOIL_DRY_VALUE             4095   // ADC saat tanah kering
-#define SOIL_WET_VALUE             0      // ADC saat tanah basah
+#define SOIL_DRY_VALUE             3200   // ADC saat tanah kering (udara terbuka) - standar Kapasitif v1.2
+#define SOIL_WET_VALUE             1500   // ADC saat tanah basah (dicelup air) - standar Kapasitif v1.2
 
 // ============================================
 // KONFIGURASI MOISTURE-BASED PUMP CONTROL

@@ -1133,6 +1133,8 @@ void updateSoilThreshold() {
 // ============================================
 // FUNGSI BACA SENSOR SOIL MOISTURE
 // ============================================
+int lastRawSoilValue = 0;
+
 int readSoilMoisture() {
     int readings[SOIL_READINGS_COUNT];
     int total = 0;
@@ -1147,6 +1149,7 @@ int readSoilMoisture() {
     }
 
     int avgRawValue = total / SOIL_READINGS_COUNT;
+    lastRawSoilValue = avgRawValue;
 
     int moisturePercent = map(avgRawValue,
                               SOIL_DRY_VALUE,
@@ -1163,6 +1166,14 @@ int readSoilMoisture() {
 // ============================================
 void updateSoilStatus() {
     soilMoisturePercent = readSoilMoisture();
+    
+    // Print raw value untuk kalibrasi sensor kapasitif
+    Serial.print("[SENSOR SOIL] RAW ADC: ");
+    Serial.print(lastRawSoilValue);
+    Serial.print(" => Kelembaban: ");
+    Serial.print(soilMoisturePercent);
+    Serial.println("%");
+
     soilIsDry = (soilMoisturePercent < soilThresholdMin);
     soilIsTooWet = (soilMoisturePercent > soilThresholdMax);
 

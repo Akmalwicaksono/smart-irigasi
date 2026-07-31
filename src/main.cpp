@@ -789,8 +789,8 @@ void initLCD() {
 // ============================================
 
 // WiFi Credentials
-#define WIFI_SSID         "UPB BEM"
-#define WIFI_PASSWORD     "kompetitif1"
+#define WIFI_SSID         "iPhone Akmal"
+#define WIFI_PASSWORD     "12345678"
 
 // Blynk Authentication Token
 #define BLYNK_AUTH_TOKEN  "ElCFaWJO1Tvd6KTEzHsZFkRihHxMTecU"
